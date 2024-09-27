@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.13'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.codehaus.janino:janino:3.0.8'
+    implementation 'org.codehaus.janino:commons-compiler:3.0.8'// janino 재추가 -> 이거 버전 중요한듯.. ㅋㅋ ..
+    implementation 'org.apache.spark:spark-mllib_2.12:3.3.0' // Spark MLlib 의존성 추가
+    //spark dependencies
+    implementation ('org.apache.spark:spark-sql_2.12:3.3.0') {
+        exclude group: 'org.codehaus.janino', module: 'janino'
+    }
+    implementation ('org.apache.spark:spark-core_2.12:3.3.0') {
+        exclude group: 'org.codehaus.janino', module: 'janino'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.kafka:kafka-clients:3.0.0'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
