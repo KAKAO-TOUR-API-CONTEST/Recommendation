@@ -15,7 +15,7 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin(origins="*", allowedHeaders = "*") // 다른 서버에서 호출해야 하거든 ㅋㅋ..
-@RequestMapping("/rcmd/user-actions")
+@RequestMapping("/rcmd")
 public class ProduceController {
 
     //그냥 결과값 알려주려고

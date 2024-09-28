@@ -13,9 +13,8 @@ public class JasyptConfig {
     @Value("${jasypt.encryptor.password}")
     private String key; // 암호화 시 사용될 키 값
 
-
-    @Bean("jasyptEncryptorDES")
-    public StringEncryptor stringEncryptor() {
+    @Bean("jasyptStringEncryptor")
+    public StringEncryptor jasyptStringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(key); // 암호화키

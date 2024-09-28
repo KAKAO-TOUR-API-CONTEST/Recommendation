@@ -7,7 +7,6 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
@@ -15,9 +14,11 @@ java {
 }
 
 configurations {
+
     compileOnly {
         extendsFrom annotationProcessor
     }
+
     all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
@@ -29,6 +30,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
@@ -39,25 +41,30 @@ dependencies {
     implementation ('org.apache.spark:spark-sql_2.12:3.3.0') {
         exclude group: 'org.codehaus.janino', module: 'janino'
     }
+
     implementation ('org.apache.spark:spark-core_2.12:3.3.0') {
         exclude group: 'org.codehaus.janino', module: 'janino'
     }
+
+    //jedis
+    implementation 'redis.clients:jedis:4.3.1'
+
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.apache.kafka:kafka-streams'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.apache.kafka:kafka-clients:3.0.0'
-
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
 
+    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.kafka:spring-kafka-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 }
 
 tasks.named('test') {

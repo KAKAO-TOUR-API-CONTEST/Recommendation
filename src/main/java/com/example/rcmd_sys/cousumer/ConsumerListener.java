@@ -31,7 +31,6 @@ public class ConsumerListener {
         try {
             // JSON 문자열을 UserEventVO 객체로 변환
             UserEventVO userEventVo = gson.fromJson(message, UserEventVO.class);
-
             // RecommendationService를 이용하여 추천 점수 계산
             recommendationService.calculateRecommendationScore(userEventVo);
             // 수신한 메시지 처리 로직 (예: 유저 행동 데이터 저장 또는 추천 시스템으로 전달)

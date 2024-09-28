@@ -23,23 +23,6 @@ public class SparkRecommendationSystem {
                 .option("inferSchema", "true")
                 .load("C://ai-jeju//leisure.csv");
 
-        // MySQL 연결 설정
-//        String url = "jdbc:mysql://database-1.c5u0os4m64uc.ap-northeast-2.rds.amazonaws.com/shop"; // DB URL
-//        String table = "stores"; // 불러올 테이블명
-//        String user = "shop"; // MySQL 사용자명
-//        String password = "shopsuccess"; // MySQL 비밀번호
-
-        // MySQL 테이블에서 데이터 로드
-//        Dataset<Row> stores = spark.read()
-//                .format("jdbc")
-//                .option("url", url)
-//                .option("dbtable", table)
-//                .option("user", user)
-//                .option("password", password)
-//                .load();
-
-
-        //stores.printSchema();
         int selectedStoreId = 1000;
 
         // 선택한 스토어의 특성 추출
@@ -84,6 +67,7 @@ public class SparkRecommendationSystem {
         // 유사도 기준으로 정렬 및 추천 결과 출력 (상위 5개만)
         similarityScores.orderBy(col("_2").desc()).limit(5).show();
     }
+
 
     public static double computeCosineSimilarity(Vector v1, Vector v2) {
         double dotProduct = v1.dot(v2);
